@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="views/style.css">
+</head>
+
+<body>
+    <div class="hero">
+        <div class="form-box">
+            <div class="button-box">
+                <div id="btn" style="color:white;"></div>
+                <button type="button" class="toggle-btn" id="btnlog" style="color:#fff;">
+                    <h2><i>Login Page</i></h2>
+                </button>
+            </div>
+            <div style="display: flex; margin-top: 11%;">
+                <div class="msg"></div>
+                <div style="margin-left: 48%; margin-top: 3%;">
+                    <input type="txt" class="input-field" name="username" id="nametxt" placeholder="User Name"
+                        onblur="checkUserName();" required><br>
+                    <span id="msgtxt"></span><br>
+                    <input type="radio" name="gender" value="male" /> Male
+                    <input type="radio" name="gender" value="female" /> Female
+                </div>
+            </div>
+
+            <br><br><br>
+            <button type="submit" id="submit" onclick="Join()" class="submit-btn" disabled>
+                <h4><i>Let's Start</i></h4>
+            </button>
+
+        </div>
+    </div>
+
+    <script src="views/script.js"></script>
+    <script src="views/jquery-3.4.1.min.js"></script>
+    <script>
+
+
+        // Name Validation
+        var checkRequest = null;
+        function checkUserName() {
+
+            if (window.XMLHttpRequest)
+                checkRequest = new XMLHttpRequest();
+            else if
+                (window.ActiveXObject) checkRequest = new ActiveXObject(Microsoft.XMLHTTP);
+
+            checkRequest.onreadystatechange = handleName;
+
+            url = "check?name=" + $("#nametxt").val() + "&gender=" + $("input[name='gender']:checked").val() + "&timeStamp=" + new Date().getTime();
+            checkRequest.open("GET", url, true);
+            checkRequest.send(null);
+        }
+
+        function handleName() {
+            if (checkRequest.readyState == 4 && checkRequest.status == 200) {
+                document.getElementById("msgtxt").innerText = checkRequest.responseText;
+            }
+
+            if (checkRequest.responseText == "Valid Name") {
+                document.getElementById("msgtxt").style.color = "green";
+                $('#submit').attr("disabled", false);
+                $('#submit').css('background', '#227f96');
+            } else {
+                document.getElementById("msgtxt").style.color = "red";
+                $('#submit').attr("disabled", true);
+                $('#submit').css('background', 'grey');
+            }
+        }
+
+
+        function Login() {
+            sessionStorage.setItem('userName', $("#nametxt").val());
+            sessionStorage.setItem('gender', $("input[name='gender']:checked").val());
+            window.location.href = "views/Chat.jsp";
+        }
+
+
+    </script>
+
+</body>
+
+</html>

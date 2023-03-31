@@ -1,0 +1,31 @@
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
+    version="5.0"
+    metadata-complete="true">
+
+    <welcome-file-list>
+        <welcome-file>views/Login.html</welcome-file>
+        <welcome-file>views/Chat.html</welcome-file>
+    </welcome-file-list>
+
+    
+    <servlet>
+        <servlet-name>Authentication</servlet-name>
+        <servlet-class>com.myservlet.Controller.Authentication</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Authentication</servlet-name>
+        <url-pattern>/authentication</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Check</servlet-name>
+        <servlet-class>com.myservlet.Controller.Check</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Check</servlet-name>
+        <url-pattern>/check</url-pattern>
+    </servlet-mapping>
+
+</web-app>
